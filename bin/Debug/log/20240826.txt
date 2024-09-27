@@ -1,0 +1,11 @@
+2024/08/26 11:54:50 [Modify] admin: 14,2024/08/22 15:04,Cinny Lin ,A15,QA,Cinny Lin ,2020,Raw Data,2,,,,,Stored but Destructible,test34
+2024/08/26 11:55:24 [Delete] admin: 3,2024/08/16 13:40:01,Cinny Lin ,A11,QA,Jimmy,2024,Raw Data-123,10,,,,,Store,
+2024/08/26 13:13:03 [Modify] test: 14,2024/8/22 15:04,Cinny Lin ,A15,QA,Cinny Lin ,2020,Raw Data,2,,,,,Stored but Destructible,test345
+2024/08/26 14:17:47 [Modify] admin: 32,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2016,Raw Data-T1,2,,,,,Stored but destructible,
+2024/08/26 14:18:43 [Modify] admin: 31,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2022,Raw Data,2,,,,,Store,Test
+2024/08/26 14:18:53 [Modify] admin: 30,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2016,Raw Data-T1,2,,,,,Stored but destructible,
+2024/08/26 14:19:04 [Modify] admin: 29,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2022,Raw Data,2,,,,,Store,Test
+2024/08/26 14:19:13 [Modify] admin: 27,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2016,Raw Data-T1,2,,,,,Stored but destructible,
+2024/08/26 14:19:21 [Modify] admin: 26,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2022,Raw Data,2,,,,,Store,Test
+2024/08/26 14:19:28 [Modify] admin: 25,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2016,Raw Data-T1,2,,,,,Stored but destructible,
+2024/08/26 14:19:34 [Modify] admin: 24,2024/08/26 13:56,Cinny Lin ,A11,Data compiling,Cinny Lin,2022,Raw Data,2,,,,,Store,Test
