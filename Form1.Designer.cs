@@ -102,9 +102,9 @@
             this.label3.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label3.Location = new System.Drawing.Point(49, 153);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(153, 40);
+            this.label3.Size = new System.Drawing.Size(167, 40);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Archivist ";
+            this.label3.Text = "*Archivist ";
             // 
             // label4
             // 
@@ -112,9 +112,9 @@
             this.label4.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label4.Location = new System.Drawing.Point(49, 211);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(217, 40);
+            this.label4.Size = new System.Drawing.Size(231, 40);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Shelf number";
+            this.label4.Text = "*Shelf number";
             // 
             // label5
             // 
@@ -122,9 +122,9 @@
             this.label5.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label5.Location = new System.Drawing.Point(49, 268);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(208, 40);
+            this.label5.Size = new System.Drawing.Size(222, 40);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Department ";
+            this.label5.Text = "*Department ";
             // 
             // label6
             // 
@@ -132,9 +132,9 @@
             this.label6.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label6.Location = new System.Drawing.Point(49, 439);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(358, 40);
+            this.label6.Size = new System.Drawing.Size(372, 40);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Contents of Document";
+            this.label6.Text = "*Contents of Document";
             // 
             // label7
             // 
@@ -142,9 +142,9 @@
             this.label7.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label7.Location = new System.Drawing.Point(49, 382);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(289, 40);
+            this.label7.Size = new System.Drawing.Size(303, 40);
             this.label7.TabIndex = 6;
-            this.label7.Text = "Year of Document";
+            this.label7.Text = "*Year of Document";
             // 
             // label8
             // 
@@ -152,9 +152,9 @@
             this.label8.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label8.Location = new System.Drawing.Point(49, 324);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(125, 40);
+            this.label8.Size = new System.Drawing.Size(139, 40);
             this.label8.TabIndex = 5;
-            this.label8.Text = "Owner ";
+            this.label8.Text = "*Owner ";
             // 
             // archiveDateTextBox
             // 
@@ -251,9 +251,9 @@
             this.label10.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label10.Location = new System.Drawing.Point(815, 384);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(119, 40);
+            this.label10.Size = new System.Drawing.Size(133, 40);
             this.label10.TabIndex = 20;
-            this.label10.Text = "Status ";
+            this.label10.Text = "*Status ";
             // 
             // label11
             // 
@@ -301,9 +301,9 @@
             this.label15.Font = new System.Drawing.Font("微軟正黑體", 16F);
             this.label15.Location = new System.Drawing.Point(815, 104);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(249, 40);
+            this.label15.Size = new System.Drawing.Size(263, 40);
             this.label15.TabIndex = 15;
-            this.label15.Text = "Archive  Period ";
+            this.label15.Text = "*Archive  Period ";
             // 
             // button1
             // 
@@ -429,7 +429,6 @@
             this.accountManagementButton.Size = new System.Drawing.Size(174, 47);
             this.accountManagementButton.TabIndex = 42;
             this.accountManagementButton.Text = "帳號管理";
-            this.accountManagementButton.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.accountManagementButton.UseVisualStyleBackColor = true;
             this.accountManagementButton.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -441,7 +440,6 @@
             this.button9.Size = new System.Drawing.Size(100, 47);
             this.button9.TabIndex = 49;
             this.button9.Text = "登出";
-            this.button9.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click_1);
             // 
@@ -531,7 +529,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1870, 1051);
+            this.ClientSize = new System.Drawing.Size(1873, 984);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.userLabel);
             this.Controls.Add(this.yearOfDocComboBox);

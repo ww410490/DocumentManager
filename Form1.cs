@@ -18,11 +18,21 @@ namespace DocumentManager
     public partial class Form1 : Form
     {
         private string _username;
+
+        // 用于保存控件的初始尺寸和位置
+        private Dictionary<Control, Rectangle> initialControlBounds = new Dictionary<Control, Rectangle>();
+        private List<int> initialColumnWidths = new List<int>();
+        private int initialRowHeight;
+        private int originalWidth = 1280;
+        private int originalHeight = 657;
+
         public Form1(string username)
         {
             InitializeComponent();
             // 设置为全屏模式
-            this.WindowState = FormWindowState.Maximized;
+            //this.WindowState = FormWindowState.Maximized;
+            this.Resize += Form1_Resize;
+
 
             _username = username;
             userLabel.Text = $@"Hi! {_username}";
@@ -301,7 +311,7 @@ namespace DocumentManager
                             updateCmd.Parameters.AddWithValue("@Status", status);
                             updateCmd.Parameters.AddWithValue("@Note", note);
                             updateCmd.Parameters.AddWithValue("@Id", selectedId);
-                            updateCmd.Parameters.AddWithValue("@ModifyDate", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                            updateCmd.Parameters.AddWithValue("@ModifyDate", DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
 
                             updateCmd.ExecuteNonQuery();
                         }
@@ -691,7 +701,7 @@ namespace DocumentManager
             // 清空现有选择
             dataGridView1.ClearSelection();
 
-            archiveDateTextBox.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            archiveDateTextBox.Text = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
             statusComboBox.Text = "Store";
         }
 
@@ -1075,6 +1085,7 @@ namespace DocumentManager
                             // Skip empty lines or lines that contain only commas
                             if (string.IsNullOrWhiteSpace(line) || IsLineOnlyCommas(line))
                             {
+                                totalRecords--;
                                 continue;
                             }
 
@@ -1101,7 +1112,7 @@ Data row does not match the expected column count.", "Import Error", MessageBoxB
                     }, null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
                             {
                                 // 重新格式化 統一存yyyy/MM/dd HH:mm:ss
-                                archiveDate = parsedDate.ToString("yyyy/MM/dd HH:mm:ss");
+                                archiveDate = parsedDate.ToString("MM/dd/yyyy HH:mm:ss");
                             }
                             string shelfNumber = values[Array.IndexOf(columnHeaders, "Shelf Number")];
                             string department = values[Array.IndexOf(columnHeaders, "Department")];
@@ -1189,7 +1200,7 @@ and ContentsOfDoc: {contentsOfDoc}
                                         updateCmd.Parameters.AddWithValue("@DisposalDate", values[Array.IndexOf(columnHeaders, "Disposal Date")]);
                                         updateCmd.Parameters.AddWithValue("@Status", values[Array.IndexOf(columnHeaders, "Status")]);
                                         updateCmd.Parameters.AddWithValue("@Note", values[Array.IndexOf(columnHeaders, "Note")]);
-                                        updateCmd.Parameters.AddWithValue("@ModifyDate", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                                        updateCmd.Parameters.AddWithValue("@ModifyDate", DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
 
                                         updateCmd.ExecuteNonQuery();
                                         updatedRecords++;
@@ -1210,7 +1221,7 @@ and ContentsOfDoc: {contentsOfDoc}
                                     using (var cmd = new SQLiteCommand(insertQuery, conn))
                                     {
                                         // 全新的一筆 data 匯入時, archive date 自動帶入匯入時間
-                                        cmd.Parameters.AddWithValue("@ArchiveDate", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+                                        cmd.Parameters.AddWithValue("@ArchiveDate", DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
                                         cmd.Parameters.AddWithValue("@Archivist", values[Array.IndexOf(columnHeaders, "Archivist")]);
                                         cmd.Parameters.AddWithValue("@ShelfNumber", shelfNumber);
                                         cmd.Parameters.AddWithValue("@Department", department);
@@ -1392,7 +1403,7 @@ and ContentsOfDoc: {contentsOfDoc}
             // 处理日期选择事件
             calendar.DateSelected += (s, ev) =>
             {
-                targetTextBox.Text = ev.Start.ToString("yyyy/MM/dd");
+                targetTextBox.Text = ev.Start.ToString("MM/dd/yyyy");
                 calendarForm.Close();
             };
 
@@ -1417,6 +1428,21 @@ and ContentsOfDoc: {contentsOfDoc}
             CheckFileLock();
             //ShowEditorInfo();
 
+            // 在窗体加载时保存控件的初始尺寸和位置
+            foreach (Control ctrl in this.Controls)
+            {
+                initialControlBounds[ctrl] = new Rectangle(ctrl.Location, ctrl.Size);
+            }
+
+            // 如果窗体中包含 DataGridView 控件，保存其列宽和行高
+            if (dataGridView1 != null)
+            {
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    initialColumnWidths.Add(column.Width);
+                }
+                initialRowHeight = dataGridView1.RowTemplate.Height;
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1477,10 +1503,10 @@ and ContentsOfDoc: {contentsOfDoc}
             button1.Enabled = false;
             button2.Enabled = false;
             button3.Enabled = false;
-            button5.Enabled = false;
-            button6.Enabled = false;
+            button5.Enabled = true;
+            button6.Enabled = true;
             button7.Enabled = false;
-            button10.Enabled = false;
+            button10.Enabled = true;
         }
 
         private void ReleaseFileLock()
@@ -1799,6 +1825,35 @@ and ContentsOfDoc: {contentsOfDoc}
         private void statusComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+
+            float scaleX = (float)this.ClientSize.Width / originalWidth;
+            float scaleY = (float)this.ClientSize.Height / originalHeight;
+
+            foreach (Control ctrl in this.Controls)
+            {
+                if (initialControlBounds.ContainsKey(ctrl))
+                {
+                    // 基于初始尺寸和位置进行缩放
+                    Rectangle initialBounds = initialControlBounds[ctrl];
+                    ctrl.Width = (int)(initialBounds.Width * scaleX);
+                    ctrl.Height = (int)(initialBounds.Height * scaleY);
+                    ctrl.Location = new Point((int)(initialBounds.X * scaleX), (int)(initialBounds.Y * scaleY));
+                }
+            }
+
+            // 调整 DataGridView 的列宽和行高
+            if (dataGridView1 != null)
+            {
+                for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                {
+                    dataGridView1.Columns[i].Width = (int)(initialColumnWidths[i] * scaleX);
+                }
+                dataGridView1.RowTemplate.Height = (int)(initialRowHeight * scaleY);
+            }
         }
     }
 }
