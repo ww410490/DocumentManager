@@ -89,9 +89,11 @@ namespace DocumentManager
 
             if (ValidateCredentials(username, password))
             {
+                string role = GetUserRole(username);
+
                 // 登录成功，打开主窗体
                 this.Hide();
-                Form1 mainForm = new Form1(username);
+                Form1 mainForm = new Form1(username, role);
                 mainForm.ShowDialog();
                 this.Close();
             }
@@ -127,12 +129,41 @@ namespace DocumentManager
             }
         }
 
+        private string GetUserRole(string username)
+        {
+            string role = string.Empty;
+
+            // 从数据库获取用户角色 (假设你使用 SQLite)
+            string databasePath = Path.Combine(Application.StartupPath, "archive.db");
+            string connectionString = $"Data Source={databasePath};Version=3;";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT role FROM Users WHERE username = @username";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            role = reader["role"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return role;
+        }
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             //一般使用者
             // 登录成功，打开主窗体
             this.Hide();
-            Form1 mainForm = new Form1("user");
+            Form1 mainForm = new Form1("user", "user");
             mainForm.ShowDialog();
             this.Close();
         }

@@ -26,7 +26,7 @@ namespace DocumentManager
         private int originalWidth = 1280;
         private int originalHeight = 657;
 
-        public Form1(string username)
+        public Form1(string username, string role)
         {
             InitializeComponent();
             // 设置为全屏模式
@@ -41,7 +41,7 @@ namespace DocumentManager
                 SetReadOnlyMode();
             }
 
-            if (_username.ToLower() != "admin") { 
+            if (role.ToLower() == "archivist") { 
                 accountManagementButton.Visible = false;
 
                 //刪除&資料匯入僅限admin可做, archivist則移除這兩個功能
@@ -1507,6 +1507,8 @@ and ContentsOfDoc: {contentsOfDoc}
             button6.Enabled = true;
             button7.Enabled = false;
             button10.Enabled = true;
+
+            accountManagementButton.Visible = false;
         }
 
         private void ReleaseFileLock()
