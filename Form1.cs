@@ -1592,7 +1592,7 @@ and ContentsOfDoc: {contentsOfDoc}
                     using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.Default))
                     {
                         // 写入 CSV 文件头
-                        sw.WriteLine("ID,Archive Date,Archivist,Shelf Number,Department,Owner,Year Of Document,Contents Of Document,Archive Period,Transfer Date,Retrieval Date,Return Date,Disposal Date,Status,Note");
+                        sw.WriteLine("ID,Archive Date,Archivist,Shelf Number,Department,Owner,Year Of Document,Contents Of Document,Archive Period,Transfer Date,Retrieval Date,Return Date,Disposal Date,Status,Note,ModifyDate");
 
                         // 写入数据
                         while (reader.Read())
@@ -1611,7 +1611,8 @@ and ContentsOfDoc: {contentsOfDoc}
                                           $"{WrapWithQuotes(reader["ReturnDate"].ToString())}," +
                                           $"{WrapWithQuotes(reader["DisposalDate"].ToString())}," +
                                           $"{WrapWithQuotes(reader["Status"].ToString())}," +
-                                          $"{WrapWithQuotes(reader["Note"].ToString())}";
+                                          $"{WrapWithQuotes(reader["Note"].ToString())}," + 
+                                          $"{WrapWithQuotes(reader["ModifyDate"].ToString())}";
 
                             sw.WriteLine(line);
                         }
